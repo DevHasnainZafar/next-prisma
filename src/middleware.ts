@@ -3,11 +3,12 @@ import { getUserFromRequest } from "./shared/utils/auth.utils";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const publicRoutes = ["/api/auth/login", "/api/auth/register", "/api/posts"];
+  const publicRoutes = ["/api/auth/login", "/api/auth/register"];
   const isPublicRoute = publicRoutes.some((route) =>
     pathname.startsWith(route)
   );
 
+  console.log("isPublic", isPublicRoute);
   if (isPublicRoute) {
     return NextResponse.next();
   }
@@ -16,6 +17,7 @@ export async function middleware(request: NextRequest) {
   const isProtectedRoute = protectedRoutes.some((route) =>
     pathname.startsWith(route)
   );
+  console.log("isProtected", isProtectedRoute);
   if (isProtectedRoute) {
     const user = await getUserFromRequest(request);
     if (!user) {
