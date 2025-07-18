@@ -8,15 +8,14 @@ export class UpdatePostUseCase {
   async execute(
     id: string,
     data: UpdatePostRequest,
-    userId: string,
-    userRole: string
+    userId: string
   ): Promise<PostResponse> {
     const existingPost = await this.postRepository.findById(id);
     if (!existingPost) {
       throw new Error("Post not found");
     }
 
-    if (existingPost.authorId !== userId && userRole !== "ADMIN") {
+    if (existingPost.authorId !== userId) {
       throw new Error("Forbidden");
     }
 

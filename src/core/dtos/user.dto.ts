@@ -13,7 +13,6 @@ export interface UserResponse {
   username: string;
   firstName?: string | null;
   lastName?: string | null;
-  role: string;
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;

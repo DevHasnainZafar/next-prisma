@@ -23,6 +23,5 @@ export interface AuthResponse {
     username: string;
     firstName?: string;
     lastName?: string;
-    role: string;
   };
 }

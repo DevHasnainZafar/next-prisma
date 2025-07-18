@@ -1,10 +1,14 @@
 export default function Home() {
   return (
-    <h1 className="text-violet-600 font-extrabold text-3xl">
-      <span className="text-green-700">ALLAH</span> is Our Creator. <br />{" "}
-      <span className="text-green-400">Prophet Muhammad(S.A.W)</span> is the
-      last Prophet Of
-      <span className="text-orange-400"> ALLAH</span>
-    </h1>
+    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-800 px-4">
+      <h1 className="text-4xl md:text-5xl font-extrabold  text-center leading-tight text-white">
+        <span >Next.js</span> with{" "}
+        <span >Prisma</span> Tutorial
+      </h1>
+      <p className="mt-6 text-center text-lg text-gray-300 max-w-xl">
+        Build modern full-stack applications with a clean architecture,
+        PostgreSQL and Prisma ORM — Next.js 15+.
+      </p>
+    </main>
   );
 }

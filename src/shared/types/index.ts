@@ -1,4 +1,4 @@
-import { Post, Role, User } from "@prisma/client";
+import { Post, User } from "@prisma/client";
 
 export interface ApiResponse<T = any> {
   success: boolean;
@@ -9,7 +9,6 @@ export interface ApiResponse<T = any> {
 export interface JWTPayload {
   userId: string;
   email: string;
-  role: Role;
 }
 export interface PaginationParams {
   page: number;

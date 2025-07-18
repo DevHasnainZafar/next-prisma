@@ -13,11 +13,6 @@ export class UserController {
 
   async getUsers(request: NextRequest) {
     try {
-      const user = await getUserFromRequest(request);
-      if (!user) {
-        return errorResponse("Unauthorized", 401);
-      }
-
       const result = await this.userService.getUsers();
       return successResponse(result);
     } catch (error) {
@@ -30,11 +25,6 @@ export class UserController {
 
   async getUser(request: NextRequest, id: string) {
     try {
-      const user = await getUserFromRequest(request);
-      if (!user) {
-        return errorResponse("Unauthorized", 401);
-      }
-
       const result = await this.userService.getUser(id);
       return successResponse(result);
     } catch (error) {

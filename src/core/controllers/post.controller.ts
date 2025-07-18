@@ -2,8 +2,7 @@ import { NextRequest } from "next/server";
 import { PostService } from "@/core/services/post.service";
 import { CreatePostDto, UpdatePostDto } from "@/core/dtos/post.dto";
 import { successResponse, errorResponse } from "@/shared/utils/response.utils";
-import { getUserFromRequest } from "@/shared/utils/auth.utils";
-import { Role } from "@prisma/client";
+import { getUserFromHeaders } from "@/shared/utils/auth-header.utils";
 
 export class PostController {
   private postService: PostService;
@@ -14,21 +13,13 @@ export class PostController {
 
   async createPost(request: NextRequest) {
     try {
-      const user = await getUserFromRequest(request);
-      if (!user) {
-        return errorResponse("Unauthorized", 401);
-      }
-
+      const { userId } = getUserFromHeaders(request);
       const body = await request.json();
       const validation = CreatePostDto.safeParse(body);
       if (!validation.success) {
         return errorResponse("Invalid input data", 400);
       }
-
-      const result = await this.postService.createPost(
-        validation.data,
-        user.userId as string
-      );
+      const result = await this.postService.createPost(validation.data, userId);
       return successResponse(result, "Post created successfully");
     } catch (error) {
       return errorResponse(
@@ -69,11 +60,7 @@ export class PostController {
 
   async updatePost(request: NextRequest, id: string) {
     try {
-      const user = await getUserFromRequest(request);
-      if (!user) {
-        return errorResponse("Unauthorized", 401);
-      }
-
+      const { userId } = getUserFromHeaders(request);
       const body = await request.json();
       const validation = UpdatePostDto.safeParse(body);
       if (!validation.success) {
@@ -83,8 +70,7 @@ export class PostController {
       const result = await this.postService.updatePost(
         id,
         validation.data,
-        user.userId as string,
-        user.role as Role
+        userId
       );
       return successResponse(result, "Post updated successfully");
     } catch (error) {
@@ -99,16 +85,8 @@ export class PostController {
 
   async deletePost(request: NextRequest, id: string) {
     try {
-      const user = await getUserFromRequest(request);
-      if (!user) {
-        return errorResponse("Unauthorized", 401);
-      }
-
-      await this.postService.deletePost(
-        id,
-        user.id as string,
-        user.role as Role
-      );
+      const { userId } = getUserFromHeaders(request);
+      await this.postService.deletePost(id, userId);
       return successResponse(null, "Post deleted successfully");
     } catch (error) {
       const status =

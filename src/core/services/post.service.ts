@@ -48,17 +48,12 @@ export class PostService {
   async updatePost(
     id: string,
     data: UpdatePostRequest,
-    userId: string,
-    userRole: string
+    userId: string
   ): Promise<PostResponse> {
-    return await this.updatePostUseCase.execute(id, data, userId, userRole);
+    return await this.updatePostUseCase.execute(id, data, userId);
   }
 
-  async deletePost(
-    id: string,
-    userId: string,
-    userRole: string
-  ): Promise<void> {
-    return await this.deletePostUseCase.execute(id, userId, userRole);
+  async deletePost(id: string, userId: string): Promise<void> {
+    return await this.deletePostUseCase.execute(id, userId);
   }
 }

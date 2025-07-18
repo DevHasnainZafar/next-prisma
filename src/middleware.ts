@@ -18,14 +18,17 @@ export async function middleware(request: NextRequest) {
   );
   if (isProtectedRoute) {
     const user = await getUserFromRequest(request);
-
     if (!user) {
       return NextResponse.json(
         { success: false, error: "Unauthorized" },
         { status: 401 }
       );
     }
+    const response = NextResponse.next();
+    response.headers.set("x-user-id", user.userId as string);
+    return response;
   }
+
   return NextResponse.next();
 }
 

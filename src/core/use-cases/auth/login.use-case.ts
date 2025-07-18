@@ -23,7 +23,6 @@ export class LoginUseCase {
     const token = await createJWT({
       userId: user.id,
       email: user.email,
-      role: user.role,
     });
 
     return {
@@ -34,7 +33,6 @@ export class LoginUseCase {
         username: user.username,
         firstName: user.firstName || undefined,
         lastName: user.lastName || undefined,
-        role: user.role,
       },
     };
   }

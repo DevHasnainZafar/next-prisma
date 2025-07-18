@@ -24,14 +24,12 @@ export class RegisterUseCase {
       password: hashedPassword,
       firstName,
       lastName,
-      role: "USER",
       isActive: true,
     });
 
     const token = await createJWT({
       userId: user.id,
       email: user.email,
-      role: user.role,
     });
 
     return {
@@ -42,7 +40,6 @@ export class RegisterUseCase {
         username: user.username,
         firstName: user.firstName || undefined,
         lastName: user.lastName || undefined,
-        role: user.role,
       },
     };
   }
